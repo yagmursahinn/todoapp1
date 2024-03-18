@@ -14,14 +14,16 @@ export default function TodoApp() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputTitle, setInputTitle] = useState("");
   const [inputDesc, setInputDesc] = useState("");
+  const [editTitle, setEditTitle] = useState("");
+  const [editDesc, setEditDesc] = useState("");
 
-  const handleSave = (id: number, newTitle: string, newDesc: string) => {
+  const handleSave = (id: number, editTitle: string, editDesc: string) => {
     const updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
         return {
           ...todo,
-          title: newTitle,
-          description: newDesc,
+          title: editTitle,
+          description: editDesc,
           isEditing: false,
         };
       }
@@ -29,11 +31,9 @@ export default function TodoApp() {
     });
     setTodos(updatedTodos);
   };
-
   return (
     <div className="ToDo">
       <div className="text">ToDo List</div>
-
       <div>
         <input
           type="text"
@@ -47,7 +47,6 @@ export default function TodoApp() {
           value={inputDesc}
           onChange={(e) => setInputDesc(e.target.value)}
         />
-
         <button
           onClick={() => {
             if (inputTitle === "" || inputDesc === "") {
@@ -60,9 +59,7 @@ export default function TodoApp() {
               description: inputDesc,
               isEditing: false,
             };
-
             setTodos((todos) => [...todos, newTask]);
-
             setInputTitle("");
             setInputDesc("");
           }}
@@ -70,7 +67,6 @@ export default function TodoApp() {
           Add
         </button>
       </div>
-
       <div>
         {todos.map((todo) => (
           <div className="todo-item" key={todo.id}>
@@ -78,18 +74,18 @@ export default function TodoApp() {
               <>
                 <input
                   type="text"
-                  defaultValue={todo.title}
-                  onChange={(e) => (todo.title = e.target.value)}
+                  value={editTitle}
+                  onChange={(e) => setEditTitle(e.target.value)}
                 />
                 <input
                   type="text"
-                  defaultValue={todo.description}
-                  onChange={(e) => (todo.description = e.target.value)}
+                  value={editDesc}
+                  onChange={(e) => setEditDesc(e.target.value)}
                 />
                 <button
-                  onClick={() =>
-                    handleSave(todo.id, todo.title, todo.description)
-                  }
+                  onClick={() => handleSave(todo.id, editTitle, editDesc)
+                
+                }
                 >
                   Save
                 </button>
