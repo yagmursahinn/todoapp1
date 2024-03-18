@@ -83,9 +83,7 @@ export default function TodoApp() {
                   onChange={(e) => setEditDesc(e.target.value)}
                 />
                 <button
-                  onClick={() => handleSave(todo.id, editTitle, editDesc)
-                
-                }
+                  onClick={() => handleSave(todo.id, editTitle, editDesc)}
                 >
                   Save
                 </button>
