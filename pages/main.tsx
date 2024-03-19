@@ -83,7 +83,12 @@ export default function TodoApp() {
                   onChange={(e) => setEditDesc(e.target.value)}
                 />
                 <button
-                  onClick={() => handleSave(todo.id, editTitle, editDesc)}
+                  onClick={() => {
+                    if (editTitle === "" || editDesc === "") {
+                      alert("Title and description are required");
+                      return;
+                    }
+                    handleSave(todo.id, editTitle, editDesc)}}
                 >
                   Save
                 </button>
